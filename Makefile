@@ -7,7 +7,7 @@ OBJS		=	$(SRCS:%.c=%.o)
 
 CC			=	cc
 # CFLAGS		=	-Wall -Wextra -Werror
-NAME		=	philosophers
+NAME		=	philo
 
 all:		$(NAME)
 
@@ -15,7 +15,6 @@ $(NAME):	$(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:		
-			make fclean
 			rm -f $(OBJS)
 
 fclean:		clean
