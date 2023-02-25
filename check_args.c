@@ -20,7 +20,7 @@ int	check_num(const char *num)
 {
 	if (is_num(num)) 
 	{
-		if (ft_atol(num) < INT_MAX)
+		if (ft_atol(num) <= INT_MAX)
 			return ((int)ft_atol(num));
 	}
 	return (0);
@@ -42,7 +42,7 @@ bool check_args(int argc, char const **argv, t_info *info)
 	if (argc == 6)
 	info->eat_num = check_num(argv[5]);
 	if (!info->fork_num || !info->die_time || !info->eat_time
-			|| !info->sleep_time || (!info->eat_num && argc == 6)|| info->fork_num > 200)
+			|| !info->sleep_time || (!info->eat_num)|| info->fork_num > 200)
 		return (put_error_return("Error, arguments is invalid"));
 	return (true);
 }
