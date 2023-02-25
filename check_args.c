@@ -35,14 +35,14 @@ bool check_args(int argc, char const **argv, t_info *info)
 		return (put_error_return("Error, too few argument"));
 	if (argc > 6)
 		return (put_error_return("Error, too many argument"));
-	info->fork_num = check_num(argv[1]);
+	info->philo_num = check_num(argv[1]);
 	info->die_time = check_num(argv[2]);
 	info->eat_time = check_num(argv[3]);
 	info->sleep_time = check_num(argv[4]);
 	if (argc == 6)
 	info->eat_num = check_num(argv[5]);
-	if (!info->fork_num || !info->die_time || !info->eat_time
-			|| !info->sleep_time || (!info->eat_num)|| info->fork_num > 200)
+	if (!info->philo_num || !info->die_time || !info->eat_time
+			|| !info->sleep_time || (!info->eat_num)|| info->philo_num > 200)
 		return (put_error_return("Error, arguments is invalid"));
 	return (true);
 }
