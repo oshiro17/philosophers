@@ -24,5 +24,6 @@ long	ft_atol(const char *str);
 bool	put_error_return(char *error_message);
 int		main(int argc, const char *argv[]);
 bool	check_args(int argc, const char **argv, t_info *info);
+void	make_pthread();
 
 #endif
