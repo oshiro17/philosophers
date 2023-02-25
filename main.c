@@ -2,7 +2,7 @@
 
 void	put_initial(t_info *info)
 {
-	info->fork_num = 0;
+	info->philo_num = 0;
 	info->eat_num = -1;
 	info->die_time = 0;
 	info->eat_time = 0;
@@ -17,6 +17,8 @@ int	main(int argc, const char *argv[])
 	if (!check_args(argc, argv, &info))
 		return (1);
 	
-	make_pthread();
+	// init_philo(info);
+	make_pthread(&info);
+	
 	return(0);
 }

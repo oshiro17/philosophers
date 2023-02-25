@@ -10,20 +10,30 @@
 # include <string.h>
 # include <sys/time.h>
 
+typedef struct s_philo
+{
+	struct s_info	*info;
+	pthread_mutex_t		*right;
+	pthread_mutex_t		left;
+	pthread_t		philo_thread;
+	int	philo_id;
+	int eat_num;
+}	t_philo;
 
 typedef struct s_info
 {
-	long	fork_num;
-	long	die_time;
-	long	eat_time;
-	long	sleep_time;
-	long	eat_num;
+	int	philo_num;
+	int	die_time;
+	int	eat_time;
+	int	sleep_time;
+	int	eat_num;
+	struct s_philo	philo[200];
 }	t_info;
 
 long	ft_atol(const char *str);
 bool	put_error_return(char *error_message);
 int		main(int argc, const char *argv[]);
 bool	check_args(int argc, const char **argv, t_info *info);
-void	make_pthread();
+void	make_pthread(t_info *info);
 
 #endif

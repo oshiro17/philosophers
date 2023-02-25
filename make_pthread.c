@@ -1,47 +1,25 @@
 #include "philosophers.h"
 
-void	*aaa(void *mutex)
+void initial_philo(t_info *info, int i)
 {
-	pthread_mutex_lock((pthread_mutex_t *)mutex);
-	sleep(2);
-	printf("thread%d\n",1);
-	pthread_mutex_unlock(mutex);
-	return(0);
+		info->philo[i].philo_id = info;
+		info->philo[i].philo_id = i;
+		info->philo[i].eat_num = info->eat_num;
+		if(i < info->philo_num - 1)
+			info->philo[i].right = &info->philo[i + 1].left;
+		else
+			info->philo[info->philo_num - 1].right = &info->philo[0].left;
 }
 
-void	*bbb(void *mutex)
+void make_pthread(t_info	*info)
 {
-	pthread_mutex_lock((pthread_mutex_t *)mutex);
-	sleep(2);
-	printf("thread%d\n",2);
-	pthread_mutex_unlock(mutex);
-	return(0);
-}
+	int i;
 
-void	*ccc(void *mutex)
-{
-	pthread_mutex_lock((pthread_mutex_t *)mutex);
-	sleep(1);
-	printf("thread%d\n",3);
-	return(0);
-}
-
-void	make_pthread()
-{
-	pthread_t	thread;
-	pthread_t	thread2;
-	pthread_t	thread3;
-	void		*retval;
-	pthread_mutex_t	mutex;
-
-	pthread_mutex_init(&mutex, NULL);
-	//mutexを初期化する
-	pthread_create(&thread, NULL, aaa, &mutex);
-	pthread_create(&thread2, NULL, bbb, &mutex);
-	pthread_create(&thread3, NULL, ccc, &mutex);
-	pthread_join(thread,&retval);
-	pthread_join(thread2,&retval);
-	pthread_join(thread3,&retval);
-	pthread_mutex_destroy(&mutex);
-	//mutexを破棄する
+	i = 0;
+	while (i < info->philo_num)
+	{
+		initial_philo(info, i);
+		pthread_mutex_ini(&info->philo[i].left);
+	}
+	return ;
 }
