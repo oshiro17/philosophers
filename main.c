@@ -16,9 +16,8 @@ int	main(int argc, const char *argv[])
 	put_initial(&info);
 	if (!check_args(argc, argv, &info))
 		return (1);
-	
 	// init_philo(info);
-	make_pthread(&info);
-	
+	// make_mutex(&info);
+	// make_thread(&data);
 	return(0);
 }

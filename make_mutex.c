@@ -11,7 +11,7 @@ void initial_philo(t_info *info, int i)
 			info->philo[info->philo_num - 1].right = &info->philo[0].left;
 }
 
-void make_pthread(t_info	*info)
+void make_mutex(t_info	*info)
 {
 	int i;
 
@@ -19,7 +19,7 @@ void make_pthread(t_info	*info)
 	while (i < info->philo_num)
 	{
 		initial_philo(info, i);
-		pthread_mutex_ini(&info->philo[i].left);
+		pthread_mutex_init(&info->philo[i].left);
 	}
 	return ;
 }
