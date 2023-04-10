@@ -11,4 +11,5 @@ void	make_thread(t_info *info)
 			&routine, &data->philo[i]);
 		i++;
 	}
+	init_philo(info)
 }

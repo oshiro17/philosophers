@@ -26,9 +26,9 @@ int	check_num(const char *num)
 	return (0);
 }
 
-bool check_args(int argc, char const **argv, t_info *info)
+bool	check_args(int argc, char const **argv, t_info *info)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (argc < 5)
@@ -44,7 +44,8 @@ bool check_args(int argc, char const **argv, t_info *info)
 	else
 		info->eat_num = 0;
 	if (!info->philo_num || !info->die_time || !info->eat_time
-			|| !info->sleep_time || (!info->eat_num && argc == 6)|| info->philo_num > 200)
+		|| !info->sleep_time || (!info->eat_num && argc == 6)
+		|| info->philo_num > 200)
 		return (put_error_return("Error, arguments is invalid"));
 	return (true);
 }
