@@ -11,9 +11,9 @@
 // 			info->philo[info->philo_num - 1].right = &info->philo[0].left;
 // }
 
-bool make_mutex(t_info	*info)
+bool	make_mutex(t_info	*info)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < info->philo_num)
@@ -23,6 +23,8 @@ bool make_mutex(t_info	*info)
 			return (put_error_return("Error, mutex_init_error"));
 		i++;
 	}
-	
+	//philo監視のためのmutex
+	// init_philo(info);
+
 	return ;
 }
