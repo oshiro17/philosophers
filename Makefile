@@ -2,7 +2,9 @@ SRCS		=	main.c	\
 				check_args.c	\
 				ft_atol.c	\
 				put_error_return.c	\
-				# make_pthread.c	\
+				make_mutex.c	\
+				init_philo.c \
+				dining.c	\
 
 OBJS		=	$(SRCS:%.c=%.o)
 
