@@ -15,7 +15,6 @@ typedef struct s_philo
 	struct s_info		*info;
 	pthread_mutex_t		*right;
 	pthread_mutex_t		*left;
-	// pthread_mutex_t		*eat_mutex;
 	pthread_t			philo_thread;
 	int					id;
 	bool				full;
@@ -31,7 +30,8 @@ typedef struct s_info
 	int					eat_num;
 	pthread_mutex_t		fork_mutex[200];
 	pthread_mutex_t		philo_eat_mutex[200];
-	// pthread_mutex_t		write_exit_mtx;
+	pthread_mutex_t		write_exit_mtx;
+	pthread_mutex_t		mutex_finish;
 	// pthread_t			thread_monitor;
 	t_philo				philo[200];
 }	t_info;

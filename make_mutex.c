@@ -19,10 +19,13 @@ bool	make_mutex(t_info	*info)
 	while (i < info->philo_num)
 	{
 		if (pthread_mutex_init(&info->fork_mutex[i], NULL) || \
-			pthread_mutex_init(&info->philo_eat_mutex[i],NULL))
+			pthread_mutex_init(&info->philo_eat_mutex[i], NULL))
 			return (put_error_return("Error, mutex_init_error"));
 		i++;
 	}
+	if (pthread_mutex_init(&info->write_exit_mtx) || \
+		pthread_mutex_init(&info->mutex_finish))
+		
 	//philo監視のためのmutex
 	// init_philo(info);
 
