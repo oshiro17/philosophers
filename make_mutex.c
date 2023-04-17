@@ -23,11 +23,10 @@ bool	make_mutex(t_info	*info)
 			return (put_error_return("Error, mutex_init_error"));
 		i++;
 	}
-	if (pthread_mutex_init(&info->write_exit_mtx) || \
-		pthread_mutex_init(&info->mutex_finish))
-		
+	if (pthread_mutex_init(&info->write_mtx, NULL) || \
+		pthread_mutex_init(&info->mutex_finish,NULL))
+		return (false);
 	//philo監視のためのmutex
 	// init_philo(info);
-
 	return (true);
 }

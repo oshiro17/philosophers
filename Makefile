@@ -5,7 +5,8 @@ SRCS		=	main.c	\
 				make_mutex.c	\
 				init_philo.c \
 				dining.c	\
-
+				print_message.c	\
+			
 OBJS		=	$(SRCS:%.c=%.o)
 
 CC			=	cc

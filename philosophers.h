@@ -19,7 +19,18 @@ typedef struct s_philo
 	int					id;
 	bool				full;
 	int					cnt_eat;
+	size_t				time_last_eat;
 }	t_philo;
+
+typedef enum e_stat
+{
+	DEFAULT,
+	EAT,
+	SLEEP,
+	THINK,
+	DEAD,
+	FORK,
+}	t_stat;
 
 typedef struct s_info
 {
@@ -30,10 +41,10 @@ typedef struct s_info
 	int					eat_num;
 	pthread_mutex_t		fork_mutex[200];
 	pthread_mutex_t		philo_eat_mutex[200];
-	pthread_mutex_t		write_exit_mtx;
+	pthread_mutex_t		write_mtx;
 	pthread_mutex_t		mutex_finish;
-	// pthread_t			thread_monitor;
-	t_philo				philo[200];
+	// pthread_t	thread_monitor;
+	t_philo			philo[200];
 }	t_info;
 
 bool	init_philo(t_info	*info);
@@ -46,4 +57,5 @@ void	dining(t_info *info);
 //void	make_thread(t_info *info);
 bool	put_error_return(char *error_message);
 bool	init_philo(t_info	*info);
+t_stat	print_message(t_philo *philo, t_stat stat);
 #endif
