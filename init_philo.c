@@ -5,7 +5,6 @@ void	init_philo_utils(t_info	*info, int i, t_philo	*philo)
 	philo->info = info;
 	philo->id = i;
 	philo->right = &info->fork_mutex[i];
-	// philo->eat_mutex = info->philo_eat_mutex[i];
 	if (i == info->philo_num - 1)
 		philo->left = &info->fork_mutex[0];
 	else

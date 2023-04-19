@@ -4,7 +4,7 @@
 // {
 // 		info->philo[i].philo_id = info;
 // 		info->philo[i].philo_id = i;
-// 		info->philo[i].eat_num = info->eat_num;
+// 		info->philo[i].must_eat_num = info->must_eat_num;
 // 		if(i < info->philo_num - 1)
 // 			info->philo[i].right = &info->philo[i + 1].left;
 // 		else

@@ -3,7 +3,7 @@
 // void	put_initial(t_info *info)
 // {
 // 	info->philo_num = 0;
-// 	info->eat_num = -1;
+// 	info->must_eat_num = -1;
 // 	info->die_time = 0;
 // 	info->eat_time = 0;
 // 	info->sleep_time = 0;

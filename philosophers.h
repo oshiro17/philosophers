@@ -34,11 +34,11 @@ typedef enum e_stat
 
 typedef struct s_info
 {
-	int					philo_num;
-	int					die_time;
-	int					eat_time;
-	int					sleep_time;
-	int					eat_num;
+	size_t				philo_num;
+	size_t				die_time;
+	size_t				eat_time;
+	size_t				sleep_time;
+	size_t				must_eat_num;
 	pthread_mutex_t		fork_mutex[200];
 	pthread_mutex_t		philo_eat_mutex[200];
 	pthread_mutex_t		write_mtx;

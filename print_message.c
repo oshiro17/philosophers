@@ -9,7 +9,13 @@ t_stat	print_message(t_philo *philo, t_stat stat)
 	gettimeofday(&tv, NULL);
 	time = tv.tv_sec * 1000 + tv.tv_usec / 1000 - philo->time_last_eat;
 	if (stat == FORK)
-		printf("%zdms => philo%d has taken a fork\n", time, philo->id + 1);
+		printf("%10zdms => philo%d has taken a fork\n", time, philo->id + 1);
+	if (stat == EAT)
+		printf("%10zdms => philo%d is eating\n", time, philo->id + 1);
+	if (stat == SLEEP)
+		printf("%10zdms => philo%d is sleeping\n", time, philo->id + 1);
+	if (stat == THINK)
+		printf("%10zdms => philo%d is thinking\n", time, philo->id + 1);
 	pthread_mutex_unlock(&philo->info->write_mtx);
 	return (FORK);
 }
