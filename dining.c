@@ -1,13 +1,13 @@
 #include "philosophers.h"
 
-void	action_time(info->eat_time)
+void	action_time(size_t action_time)
 {
 	struct timeval		tv;
 	size_t				start_time;
 
 	gettimeofday(&tv, NULL);
 	start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	while ((tv.tv_sec * 1000) + (tv.tv_usec / 1000) - start_time < eat_time)
+	while ((tv.tv_sec * 1000) + (tv.tv_usec / 1000) - start_time < action_time)
 	{
 		gettimeofday(&tv, NULL);
 		usleep(500);
@@ -31,11 +31,28 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	philo->time_last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	philo->cnt_eat++;
 	if (info->must_eat_num < philo->cnt_eat)
-		philo->full == true;
+		philo->full =true;
 	action_time(info->eat_time);
 	pthread_mutex_unlock(philo->right);
 	pthread_mutex_unlock(philo->left);
 	return (DEFAULT);
+}
+
+void	*check_finish(void *vptr)
+{
+	t_info		*info;
+
+	info = (t_info *)info;
+	while (1)
+	{
+		ut
+
+	}
+}
+
+bool	check_finish_utils(t_info *info)
+{
+
 }
 
 void	*routine(void *vptr)
@@ -51,7 +68,7 @@ void	*routine(void *vptr)
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
 	gettimeofday(&tv, NULL);
 	philo->time_last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	while (1)
+	while (check_finish_utils)
 	{
 		if (stat == DEFAULT)
 			stat = eat(info, philo);
@@ -74,6 +91,7 @@ void	dining(t_info *info)
 		NULL, routine, &info->philo[i]);
 		i++;
 	}
+	pthread_create(&info->thread_monitor, NULL, check_finish, &info)
 	i = 0;
 	while (i <info->philo_num)
 	{
