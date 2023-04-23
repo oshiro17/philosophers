@@ -2,6 +2,10 @@
 
 void	init_philo_utils(t_info	*info, int i, t_philo	*philo)
 {
+	struct timeval	tv;
+
+	gettimeofday(&tv,NULL);
+	info->time_start = tv.tv_sec*1000 + tv.tv_usec/1000;
 	philo->info = info;
 	philo->id = i;
 	philo->full = false;

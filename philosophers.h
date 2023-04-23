@@ -20,6 +20,7 @@ typedef struct s_philo
 	bool				full;
 	int					cnt_eat;
 	size_t				time_last_eat;
+	size_t				philo_num;
 }	t_philo;
 
 typedef enum e_stat
@@ -36,6 +37,7 @@ typedef enum e_stat
 typedef struct s_info
 {
 	size_t				philo_num;
+	size_t				time_start;
 	size_t				die_time;
 	size_t				eat_time;
 	size_t				sleep_time;

@@ -93,10 +93,12 @@ void	*routine(void *vptr)
 	philo = (t_philo *)vptr;
 	info = philo->info;
 	stat = DEFAULT;
+	// printf("%zd\n",info->time_start);
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
 	gettimeofday(&tv, NULL);
 	philo->time_last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
+	// philo->time_start = philo->time_last_eat;
 	pthread_mutex_lock(&info->mutex_finish);
 	while (info->finish != true)
 	{
@@ -121,7 +123,6 @@ void	dining(t_info *info)
 		NULL, routine, &info->philo[i]);
 		i++;
 	}
-	printf("129aaaaaaaaaaaaaaaa:%zd\n",info->philo_num);
 	pthread_create(&info->thread_monitor, NULL, check_finish, info);
 	pthread_detach(info->thread_monitor);
 	i = 0;
