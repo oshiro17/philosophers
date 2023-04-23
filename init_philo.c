@@ -20,6 +20,7 @@ bool	init_philo(t_info	*info)
 	int	i;
 
 	i = 0;
+	printf("23:%zd\n",info->philo_num);
 	while (i < info->philo_num)
 	{
 		init_philo_utils(info, i, &info->philo[i]);

@@ -9,8 +9,8 @@ void	action_time(size_t action_time)
 	start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	while ((tv.tv_sec * 1000) + (tv.tv_usec / 1000) - start_time < action_time)
 	{
-		gettimeofday(&tv, NULL);
 		usleep(500);
+		gettimeofday(&tv, NULL);
 	}
 }
 
@@ -38,19 +38,31 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	return (DEFAULT);
 }
 
+// void	ft_sleep(size_t	sleep)
+// {
+// 	size_t				start;
+// 	struct timeval		tv;
+
+
+// 	start = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+// 	while (get_time() - start < sleep)
+// 		usleep(500);
+// }
+
+
 void	*check_finish(void	*vptr)
 {
 	t_info		*info;
 	int			full_philo;
 	int			i;
 
-	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	info = (t_info *)vptr;
 	full_philo = 0;
-	// info->philo[i].full = false;
 	while (1)
 	{
 		full_philo = 0;
+		action_time(5);
+		// usleep(500);
 		i = 0;
 		while (i < info->philo_num)
 		{
@@ -109,7 +121,8 @@ void	dining(t_info *info)
 		NULL, routine, &info->philo[i]);
 		i++;
 	}
-	pthread_create(&info->thread_monitor, NULL, check_finish, &info);
+	printf("129aaaaaaaaaaaaaaaa:%zd\n",info->philo_num);
+	pthread_create(&info->thread_monitor, NULL, check_finish, info);
 	pthread_detach(info->thread_monitor);
 	i = 0;
 	while (i < info->philo_num)

@@ -36,6 +36,7 @@ bool	check_args(int argc, char const **argv, t_info *info)
 	if (argc > 6)
 		return (put_error_return("Error, too many argument"));
 	info->philo_num = check_num(argv[1]);
+	// printf("aaaaaaaaaaaaaaaa:%zd\n",info->philo_num);
 	info->die_time = check_num(argv[2]);
 	info->eat_time = check_num(argv[3]);
 	info->sleep_time = check_num(argv[4]);
