@@ -24,43 +24,59 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	print_message(philo, FORK);
 	pthread_mutex_lock(philo->left);
 	print_message(philo, FORK);
-	// usleep(5000000);
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
 	print_message(philo, EAT);
 	gettimeofday(&tv, NULL);
 	philo->time_last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	philo->cnt_eat++;
 	if (info->must_eat_num < philo->cnt_eat)
-		philo->full =true;
+		philo->full =  true;
+	pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
 	action_time(info->eat_time);
 	pthread_mutex_unlock(philo->right);
 	pthread_mutex_unlock(philo->left);
 	return (DEFAULT);
 }
 
-void	*check_finish(void *vptr)
+void	*check_finish(void	*vptr)
 {
 	t_info		*info;
+	int			full_philo;
+	int			i;
 
-	info = (t_info *)info;
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	info = (t_info *)vptr;
+	full_philo = 0;
+	// info->philo[i].full = false;
 	while (1)
 	{
-		ut
-
+		full_philo = 0;
+		i = 0;
+		while (i < info->philo_num)
+		{
+			pthread_mutex_lock(&info->philo_eat_mutex[i]);
+			if (info->philo[i].full == true)
+				full_philo++;
+			if (full_philo == info->philo_num)
+			{
+				pthread_mutex_lock(&info->mutex_finish);
+				info->finish = true;
+				pthread_mutex_unlock(&info->mutex_finish);
+				print_message(&info->philo[0], FULL);
+				return (NULL);
+			}
+			pthread_mutex_unlock(&info->philo_eat_mutex[i]);
+			i++;
+		}
 	}
-}
-
-bool	check_finish_utils(t_info *info)
-{
-
 }
 
 void	*routine(void *vptr)
 {
-	t_philo				*philo;
-	t_info				*info;
-	struct timeval		tv;
-	t_stat				stat;
+	t_philo			*philo;
+	t_info			*info;
+	struct timeval	tv;
+	t_stat			stat;
 
 	philo = (t_philo *)vptr;
 	info = philo->info;
@@ -68,14 +84,16 @@ void	*routine(void *vptr)
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
 	gettimeofday(&tv, NULL);
 	philo->time_last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	while (check_finish_utils)
+	pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
+	pthread_mutex_lock(&info->mutex_finish);
+	while (info->finish != true)
 	{
+		pthread_mutex_unlock(&info->mutex_finish);
 		if (stat == DEFAULT)
 			stat = eat(info, philo);
+		usleep(500);
+		pthread_mutex_lock(&info->mutex_finish);
 	}
-	// printf("%d\n",philo->id);
-	// printf("%d\n",philo->info->must_eat_num);
-
 	return (NULL);
 }
 
@@ -91,9 +109,10 @@ void	dining(t_info *info)
 		NULL, routine, &info->philo[i]);
 		i++;
 	}
-	pthread_create(&info->thread_monitor, NULL, check_finish, &info)
+	pthread_create(&info->thread_monitor, NULL, check_finish, &info);
+	pthread_detach(info->thread_monitor);
 	i = 0;
-	while (i <info->philo_num)
+	while (i < info->philo_num)
 	{
 		pthread_join(info->philo[i].philo_thread, NULL);
 		i++;

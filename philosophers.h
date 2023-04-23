@@ -30,6 +30,7 @@ typedef enum e_stat
 	THINK,
 	DEAD,
 	FORK,
+	FULL,
 }	t_stat;
 
 typedef struct s_info
@@ -39,12 +40,13 @@ typedef struct s_info
 	size_t				eat_time;
 	size_t				sleep_time;
 	size_t				must_eat_num;
+	bool				finish;
 	pthread_mutex_t		fork_mutex[200];
 	pthread_mutex_t		philo_eat_mutex[200];
 	pthread_mutex_t		write_mtx;
 	pthread_mutex_t		mutex_finish;
-	pthread_t	thread_monitor;
-	t_philo			philo[200];
+	pthread_t			thread_monitor;
+	t_philo				philo[200];
 }	t_info;
 
 bool	init_philo(t_info	*info);
