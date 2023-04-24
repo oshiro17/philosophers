@@ -18,7 +18,9 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	pthread_mutex_lock(philo->left);
 	print_message(philo, FORK);
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	print_message(philo, EAT);
+	printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	philo->time_last_eat = get_time();
 	philo->cnt_eat++;
 	if (info->must_eat_num < philo->cnt_eat)
@@ -66,10 +68,9 @@ void	*check_finish(void	*vptr)
 	full_philo = 0;
 	while (1)
 	{
+		action_time(5);
 		if (check_full(info))
-		{
 			return (NULL);
-		}
 	}
 }
 
@@ -94,8 +95,8 @@ void	*routine(void *vptr)
 		pthread_mutex_lock(&info->mutex_finish);
 		usleep(500);
 	}
-	pthread_mutex_unlock(&info->mutex_finish);
 	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
+	pthread_mutex_unlock(&info->mutex_finish);
 	return (NULL);
 }
 

@@ -2,14 +2,15 @@
 
 t_stat	print_message(t_philo *philo, t_stat stat)
 {
-	struct timeval		tv;
 	size_t				time;
 
 	pthread_mutex_lock(&philo->info->mutex_write);
-	gettimeofday(&tv, NULL);
-	time = (tv.tv_sec * 1000 + tv.tv_usec / 1000) - philo->info->time_start;
+	time = get_time();
 	if (stat == FULL)
+	{
 		printf("All philosophers are full\n");
+		return (FULL);
+	}
 	if (stat == FORK)
 		printf("%10zdms => philo%d has taken a fork\n", time, philo->id);
 	if (stat == EAT)

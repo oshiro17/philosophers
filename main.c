@@ -4,6 +4,7 @@ void	mutex_destroy(t_info	*info)
 {
 	int	i;
 
+	pthread_mutex_unlock(&info->mutex_write);
 	while (i < info->philo_num)
 	{
 		pthread_mutex_destroy(&info->fork_mutex[i]);
