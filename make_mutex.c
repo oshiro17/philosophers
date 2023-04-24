@@ -1,15 +1,5 @@
 #include "philosophers.h"
 
-// void initial_philo(t_info *info, int i)
-// {
-// 		info->philo[i].philo_id = info;
-// 		info->philo[i].philo_id = i;
-// 		info->philo[i].must_eat_num = info->must_eat_num;
-// 		if(i < info->philo_num - 1)
-// 			info->philo[i].right = &info->philo[i + 1].left;
-// 		else
-// 			info->philo[info->philo_num - 1].right = &info->philo[0].left;
-// }
 
 bool	make_mutex(t_info	*info)
 {
@@ -23,7 +13,7 @@ bool	make_mutex(t_info	*info)
 			return (put_error_return("Error, mutex_init_error"));
 		i++;
 	}
-	if (pthread_mutex_init(&info->write_mtx, NULL) || \
+	if (pthread_mutex_init(&info->mutex_write, NULL) || \
 		pthread_mutex_init(&info->mutex_finish,NULL))
 		return (false);
 	//philo監視のためのmutex

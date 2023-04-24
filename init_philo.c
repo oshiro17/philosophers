@@ -2,10 +2,7 @@
 
 void	init_philo_utils(t_info	*info, int i, t_philo	*philo)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv,NULL);
-	info->time_start = tv.tv_sec*1000 + tv.tv_usec/1000;
+	info->time_start = get_time();
 	philo->info = info;
 	philo->id = i;
 	philo->full = false;
@@ -24,7 +21,6 @@ bool	init_philo(t_info	*info)
 	int	i;
 
 	i = 0;
-	printf("23:%zd\n",info->philo_num);
 	while (i < info->philo_num)
 	{
 		init_philo_utils(info, i, &info->philo[i]);

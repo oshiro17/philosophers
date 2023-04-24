@@ -6,6 +6,7 @@ SRCS		=	main.c	\
 				init_philo.c \
 				dining.c	\
 				print_message.c	\
+				utils_time.c \
 			
 OBJS		=	$(SRCS:%.c=%.o)
 

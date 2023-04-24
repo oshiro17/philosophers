@@ -2,22 +2,15 @@
 
 void	action_time(size_t action_time)
 {
-	struct timeval		tv;
 	size_t				start_time;
 
-	gettimeofday(&tv, NULL);
-	start_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-	while ((tv.tv_sec * 1000) + (tv.tv_usec / 1000) - start_time < action_time)
-	{
+	start_time = get_time();
+	while (get_time() - start_time < action_time)
 		usleep(500);
-		gettimeofday(&tv, NULL);
-	}
 }
 
 t_stat	eat(t_info	*info, t_philo	*philo)
 {
-	struct timeval		tv;
-
 	if (philo->id % 2)
 		usleep(500);
 	pthread_mutex_lock(philo->right);
@@ -26,11 +19,10 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	print_message(philo, FORK);
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
 	print_message(philo, EAT);
-	gettimeofday(&tv, NULL);
-	philo->time_last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	philo->time_last_eat = get_time();
 	philo->cnt_eat++;
 	if (info->must_eat_num < philo->cnt_eat)
-		philo->full =  true;
+		philo->full = true;
 	pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
 	action_time(info->eat_time);
 	pthread_mutex_unlock(philo->right);
@@ -38,17 +30,31 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	return (DEFAULT);
 }
 
-// void	ft_sleep(size_t	sleep)
-// {
-// 	size_t				start;
-// 	struct timeval		tv;
+bool	check_full(t_info	*info)
+{
+	int	full_count;
+	int	i;
 
+	i = 0;
+	while (i < info->philo_num)
+	{
+		pthread_mutex_lock(&info->philo_eat_mutex[i]);
+		if (info->philo[i].full)
+			full_count++;
+		pthread_mutex_unlock(&info->philo_eat_mutex[i]);
+		if (full_count == info->philo_num)
+		{
+			pthread_mutex_lock(&info->mutex_finish);
+			info->finish = true;
+			pthread_mutex_unlock(&info->mutex_finish);
+			print_message(&info->philo[0], FULL);
+			return (true);
+		}
+		i++;
+	}
+	return (false);
 
-// 	start = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-// 	while (get_time() - start < sleep)
-// 		usleep(500);
-// }
-
+}
 
 void	*check_finish(void	*vptr)
 {
@@ -60,25 +66,9 @@ void	*check_finish(void	*vptr)
 	full_philo = 0;
 	while (1)
 	{
-		full_philo = 0;
-		action_time(5);
-		// usleep(500);
-		i = 0;
-		while (i < info->philo_num)
+		if (check_full(info))
 		{
-			pthread_mutex_lock(&info->philo_eat_mutex[i]);
-			if (info->philo[i].full == true)
-				full_philo++;
-			if (full_philo == info->philo_num)
-			{
-				pthread_mutex_lock(&info->mutex_finish);
-				info->finish = true;
-				pthread_mutex_unlock(&info->mutex_finish);
-				print_message(&info->philo[0], FULL);
-				return (NULL);
-			}
-			pthread_mutex_unlock(&info->philo_eat_mutex[i]);
-			i++;
+			return (NULL);
 		}
 	}
 }
@@ -87,27 +77,25 @@ void	*routine(void *vptr)
 {
 	t_philo			*philo;
 	t_info			*info;
-	struct timeval	tv;
 	t_stat			stat;
 
 	philo = (t_philo *)vptr;
 	info = philo->info;
 	stat = DEFAULT;
-	// printf("%zd\n",info->time_start);
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
-	gettimeofday(&tv, NULL);
-	philo->time_last_eat = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	philo->time_last_eat = get_time();
 	pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
-	// philo->time_start = philo->time_last_eat;
 	pthread_mutex_lock(&info->mutex_finish);
 	while (info->finish != true)
 	{
 		pthread_mutex_unlock(&info->mutex_finish);
 		if (stat == DEFAULT)
 			stat = eat(info, philo);
-		usleep(500);
 		pthread_mutex_lock(&info->mutex_finish);
+		usleep(500);
 	}
+	pthread_mutex_unlock(&info->mutex_finish);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	return (NULL);
 }
 
@@ -131,4 +119,5 @@ void	dining(t_info *info)
 		pthread_join(info->philo[i].philo_thread, NULL);
 		i++;
 	}
+	return ;
 }

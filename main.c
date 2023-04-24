@@ -1,15 +1,18 @@
 #include "philosophers.h"
 
-// void	put_initial(t_info *info)
-// {
-// 	info->philo_num = 0;
-// 	info->must_eat_num = -1;
-// 	info->die_time = 0;
-// 	info->eat_time = 0;
-// 	info->sleep_time = 0;
-// 	// info->dead_num = 0;
-// 	// info->is_exit =false;
-// }
+void	mutex_destroy(t_info	*info)
+{
+	int	i;
+
+	while (i < info->philo_num)
+	{
+		pthread_mutex_destroy(&info->fork_mutex[i]);
+		pthread_mutex_destroy(&info->philo_eat_mutex[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&info->mutex_finish);
+	pthread_mutex_destroy(&info->mutex_write);
+}
 
 int	main(int argc, const char *argv[])
 {
@@ -20,6 +23,7 @@ int	main(int argc, const char *argv[])
 		return (1);
 	init_philo(&info);
 	dining(&info);
+	mutex_destroy(&info);
 	// make_thread(&data);
 	return(0);
 }
