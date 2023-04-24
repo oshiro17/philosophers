@@ -16,7 +16,5 @@ bool	make_mutex(t_info	*info)
 	if (pthread_mutex_init(&info->mutex_write, NULL) || \
 		pthread_mutex_init(&info->mutex_finish,NULL))
 		return (false);
-	//philo監視のためのmutex
-	// init_philo(info);
 	return (true);
 }
