@@ -1,23 +1,19 @@
 #include "philosophers.h"
 
-t_stat	print_message(t_philo *philo, t_stat stat)
+void	print_message(t_philo *philo, t_stat stat)
 {
 	size_t				time;
 	bool				finish;
 
 	pthread_mutex_lock(&philo->info->mutex_write);
 	time = get_time() - philo->info->time_start;
-	if (stat == FULL)
-	{
-		printf("All philosophers are full\n");
-		pthread_mutex_unlock(&philo->info->mutex_write);
-		return (FULL);
-	}
 	pthread_mutex_lock(&philo->info->mutex_finish);
 	finish = philo->info->finish;
 	pthread_mutex_unlock(&philo->info->mutex_finish);
-	if (finish == false)
+	if (finish == false || stat == FULL)
 	{
+		if (stat == FULL)
+			printf("All philosophers are full\n");
 		if (stat == FORK)
 			printf("%10zdms => philo%d has taken a fork\n", time, philo->id);
 		if (stat == EAT)
@@ -28,5 +24,5 @@ t_stat	print_message(t_philo *philo, t_stat stat)
 			printf("%10zdms => philo%d is thinking\n", time, philo->id);
 	}
 	pthread_mutex_unlock(&philo->info->mutex_write);
-	return (FORK);
+	return ;
 }

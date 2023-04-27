@@ -62,5 +62,5 @@ void	dining(t_info *info);
 //void	make_thread(t_info *info);
 bool	put_error_return(char *error_message);
 bool	init_philo(t_info	*info);
-t_stat	print_message(t_philo *philo, t_stat stat);
+void	print_message(t_philo *philo, t_stat stat);
 #endif
