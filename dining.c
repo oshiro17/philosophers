@@ -9,6 +9,19 @@ void	action_time(size_t action_time)
 		usleep(500);
 }
 
+t_stat	action_sleep(t_info *info, t_philo	*philo)
+{
+	print_message(philo, SLEEP);
+	action_time(info->sleep_time);
+	return (DEFAULT);
+}
+
+t_stat	think(t_philo	*philo)
+{
+	print_message(philo, THINK);
+	return (DEFAULT);
+}
+
 t_stat	eat(t_info	*info, t_philo	*philo)
 {
 	if (philo->id % 2)
@@ -90,6 +103,10 @@ void	*routine(void *vptr)
 		pthread_mutex_unlock(&info->mutex_finish);
 		if (stat == DEFAULT)
 			stat = eat(info, philo);
+		if (stat == DEFAULT)
+			stat = action_sleep(info, philo);
+		if (stat == DEFAULT)
+			stat = think(philo);
 		pthread_mutex_lock(&info->mutex_finish);
 		usleep(500);
 	}

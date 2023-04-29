@@ -1,8 +1,8 @@
 #include "philosophers.h"
 
-int is_num(const char *num)
+int	is_num(const char *num)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (num[0] == '+' && num[1])
@@ -18,7 +18,7 @@ int is_num(const char *num)
 
 int	check_num(const char *num)
 {
-	if (is_num(num)) 
+	if (is_num(num))
 	{
 		if (ft_atol(num) <= INT_MAX)
 			return ((int)ft_atol(num));

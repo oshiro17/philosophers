@@ -1,6 +1,5 @@
 #include "philosophers.h"
 
-
 bool	make_mutex(t_info	*info)
 {
 	int	i;
