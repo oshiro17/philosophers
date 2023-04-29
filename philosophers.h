@@ -63,4 +63,9 @@ void	dining(t_info *info);
 bool	put_error_return(char *error_message);
 bool	init_philo(t_info	*info);
 void	print_message(t_philo *philo, t_stat stat);
+void	*check_finish(void	*vptr);
+t_stat	eat(t_info	*info, t_philo	*philo);
+t_stat	think(t_philo	*philo);
+t_stat	action_sleep(t_info *info, t_philo	*philo);
+void	action_time(size_t action_time);
 #endif
