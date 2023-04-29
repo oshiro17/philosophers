@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   dining.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: panti <panti@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 02:51:26 by panti             #+#    #+#             */
+/*   Updated: 2023/04/30 02:51:51 by panti            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	*routine(void *vptr)
@@ -23,7 +35,6 @@ void	*routine(void *vptr)
 		if (stat == DEFAULT)
 			stat = think(philo);
 		pthread_mutex_lock(&info->mutex_finish);
-		usleep(500);
 	}
 	pthread_mutex_unlock(&info->mutex_finish);
 	return (NULL);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: panti <panti@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 02:36:09 by panti             #+#    #+#             */
+/*   Updated: 2023/04/30 02:49:38 by panti            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philosophers.h"
 
 void	mutex_destroy(t_info	*info)
@@ -20,12 +32,10 @@ int	main(int argc, const char *argv[])
 {
 	t_info	info;
 
-	// put_initial(&info);
-	if (!check_args(argc, argv, &info)||!make_mutex(&info))
+	if (!check_args(argc, argv, &info) || !make_mutex(&info))
 		return (1);
 	init_philo(&info);
 	dining(&info);
 	mutex_destroy(&info);
-	// make_thread(&data);
-	return(0);
+	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: panti <panti@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/30 02:50:03 by panti             #+#    #+#             */
+/*   Updated: 2023/04/30 02:50:22 by panti            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
@@ -18,7 +30,7 @@ typedef struct s_philo
 	pthread_t			philo_thread;
 	int					id;
 	bool				full;
-	size_t					cnt_eat;
+	size_t				cnt_eat;
 	size_t				time_last_eat;
 	size_t				philo_num;
 }	t_philo;
