@@ -28,6 +28,11 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 		usleep(500);
 	pthread_mutex_lock(philo->right);
 	print_message(philo, FORK);
+	if (info->philo_num == 1)
+	{
+		pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
+		return (DEAD);
+	}
 	pthread_mutex_lock(philo->left);
 	print_message(philo, FORK);
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
@@ -43,7 +48,7 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	return (DEFAULT);
 }
 
-bool	check_full(t_info	*info)
+bool	check_philos_full(t_info	*info)
 {
 	int	full_count;
 	int	i;
@@ -69,6 +74,30 @@ bool	check_full(t_info	*info)
 
 }
 
+bool	check_philos_dead(t_info	*info)
+{
+	int		i;
+	size_t	time_last_eat;
+
+	i = 0;
+	while (i < info->philo_num)
+	{
+		pthread_mutex_lock(&info->philo_eat_mutex[i]);
+		time_last_eat = info->philo[i].time_last_eat;
+		pthread_mutex_unlock(&info->philo_eat_mutex[i]);
+		if (get_time() - time_last_eat > info->die_time)
+		{
+			pthread_mutex_lock(&info->mutex_finish);
+			info->finish = true;
+			pthread_mutex_unlock(&info->mutex_finish);
+			print_message(&info->philo[i], DEAD);
+			return (true);
+		}	
+		i++;
+	}
+	return (false);
+}
+
 void	*check_finish(void	*vptr)
 {
 	t_info		*info;
@@ -80,7 +109,9 @@ void	*check_finish(void	*vptr)
 	while (1)
 	{
 		action_time(5);
-		if (check_full(info))
+		if (check_philos_full(info))
+			return (NULL);
+		if (check_philos_dead(info))
 			return (NULL);
 	}
 }

@@ -10,8 +10,10 @@ void	print_message(t_philo *philo, t_stat stat)
 	pthread_mutex_lock(&philo->info->mutex_finish);
 	finish = philo->info->finish;
 	pthread_mutex_unlock(&philo->info->mutex_finish);
-	if (finish == false || stat == FULL)
+	if (finish == false || stat == FULL || stat == DEAD)
 	{
+		if (stat == DEAD)
+			printf("%10zdms =>   philo_%-4d is died\n", time, philo->id);
 		if (stat == FULL)
 			printf("All philosophers are full\n");
 		if (stat == FORK)
