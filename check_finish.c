@@ -6,7 +6,7 @@
 /*   By: panti <panti@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 02:35:41 by panti             #+#    #+#             */
-/*   Updated: 2023/04/30 03:26:30 by panti            ###   ########.fr       */
+/*   Updated: 2023/04/30 03:52:31 by panti            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ void	*check_finish(void	*vptr)
 	info = (t_info *)vptr;
 	while (1)
 	{
+		action_time(5);
 		if (check_philos_full(info))
 			return (NULL);
 		if (check_philos_dead(info))
 			return (NULL);
-		// action_time(5);
 	}
 }
