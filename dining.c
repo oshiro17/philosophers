@@ -39,7 +39,7 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	print_message(philo, EAT);
 	philo->time_last_eat = get_time();
 	philo->cnt_eat++;
-	if (info->must_eat_num < philo->cnt_eat)
+	if (info->must_eat_num < philo->cnt_eat && info->must_eat_num != 0)
 		philo->full = true;
 	pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
 	action_time(info->eat_time);
