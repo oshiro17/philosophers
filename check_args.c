@@ -28,9 +28,6 @@ int	check_num(const char *num)
 
 bool	check_args(int argc, char const **argv, t_info *info)
 {
-	int	i;
-
-	i = 0;
 	if (argc < 5)
 		return (put_error_return("Error, too few argument"));
 	if (argc > 6)

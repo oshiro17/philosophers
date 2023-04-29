@@ -1,6 +1,6 @@
 #include "philosophers.h"
 
-void	init_philo_utils(t_info	*info, int i, t_philo	*philo)
+void	init_philo_utils(t_info	*info, size_t i, t_philo	*philo)
 {
 	info->time_start = get_time();
 	philo->info = info;
@@ -18,7 +18,7 @@ void	init_philo_utils(t_info	*info, int i, t_philo	*philo)
 
 bool	init_philo(t_info	*info)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < info->philo_num)

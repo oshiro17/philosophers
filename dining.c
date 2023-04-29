@@ -50,9 +50,10 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 
 bool	check_philos_full(t_info	*info)
 {
-	int	full_count;
-	int	i;
+	size_t	full_count;
+	size_t	i;
 
+	full_count = 0;
 	i = 0;
 	while (i < info->philo_num)
 	{
@@ -76,7 +77,7 @@ bool	check_philos_full(t_info	*info)
 
 bool	check_philos_dead(t_info	*info)
 {
-	int		i;
+	size_t		i;
 	size_t	time_last_eat;
 
 	i = 0;
@@ -101,11 +102,8 @@ bool	check_philos_dead(t_info	*info)
 void	*check_finish(void	*vptr)
 {
 	t_info		*info;
-	int			full_philo;
-	int			i;
 
 	info = (t_info *)vptr;
-	full_philo = 0;
 	while (1)
 	{
 		action_time(5);
@@ -147,8 +145,7 @@ void	*routine(void *vptr)
 
 void	dining(t_info *info)
 {
-	int			i;
-	pthread_t	check_pthread;
+	size_t		i;
 
 	i = 0;
 	while (i < info->philo_num)

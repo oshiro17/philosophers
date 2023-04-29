@@ -2,7 +2,7 @@
 
 bool	make_mutex(t_info	*info)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	while (i < info->philo_num)

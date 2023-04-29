@@ -18,7 +18,7 @@ typedef struct s_philo
 	pthread_t			philo_thread;
 	int					id;
 	bool				full;
-	int					cnt_eat;
+	size_t					cnt_eat;
 	size_t				time_last_eat;
 	size_t				philo_num;
 }	t_philo;

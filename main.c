@@ -2,8 +2,9 @@
 
 void	mutex_destroy(t_info	*info)
 {
-	int	i;
+	size_t	i;
 
+	i = 0;
 	pthread_mutex_unlock(&info->mutex_write);
 	while (i < info->philo_num)
 	{
