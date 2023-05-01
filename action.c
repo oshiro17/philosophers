@@ -6,7 +6,7 @@
 /*   By: panti <panti@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 02:34:22 by panti             #+#    #+#             */
-/*   Updated: 2023/04/30 02:34:26 by panti            ###   ########.fr       */
+/*   Updated: 2023/05/01 17:05:19 by panti            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,12 @@ t_stat	think(t_philo	*philo)
 	return (DEFAULT);
 }
 
+t_stat	philoman(t_info	*info, t_philo *philo)
+{
+	pthread_mutex_unlock(philo->right);
+	return (DEAD);
+}
+
 t_stat	eat(t_info	*info, t_philo	*philo)
 {
 	if (philo->id % 2)
@@ -41,10 +47,7 @@ t_stat	eat(t_info	*info, t_philo	*philo)
 	pthread_mutex_lock(philo->right);
 	print_message(philo, FORK);
 	if (info->philo_num == 1)
-	{
-		pthread_mutex_unlock(&info->philo_eat_mutex[philo->id]);
-		return (DEAD);
-	}
+		return (philoman(info, philo));
 	pthread_mutex_lock(philo->left);
 	print_message(philo, FORK);
 	pthread_mutex_lock(&info->philo_eat_mutex[philo->id]);
