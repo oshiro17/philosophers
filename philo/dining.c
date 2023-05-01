@@ -6,7 +6,7 @@
 /*   By: panti <panti@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/30 02:51:26 by panti             #+#    #+#             */
-/*   Updated: 2023/05/01 17:06:02 by panti            ###   ########.fr       */
+/*   Updated: 2023/05/01 20:44:36 by panti            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,11 @@ void	*routine(void *vptr)
 		if (stat == DEFAULT)
 			stat = think(philo);
 		pthread_mutex_lock(&info->mutex_finish);
+		// write(1,"35\n",3);
+		// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	}
+		// write(1,"41\n",3);
+	// printf("LINE == %d, FILE == %s\n", __LINE__, __FILE__);
 	pthread_mutex_unlock(&info->mutex_finish);
 	return (NULL);
 }

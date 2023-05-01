@@ -13,8 +13,8 @@ SRCS		=	main.c	\
 OBJS		=	$(SRCS:%.c=%.o)
 
 CC			=	cc
-# CFLAGS		=	-Wall -Wextra -Werror
-CFLAGS		=	-g -fsanitize=thread
+FSANITIZE	=	-g -fsanitize=thread
+CFLAGS		=	-Wall -Wextra -Werror $(FSANITIZE)
 NAME		=	philo
 
 all:		$(NAME)
